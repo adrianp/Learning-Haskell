@@ -1,0 +1,4 @@
+-- make sure this file is not writable by others (e.g., group)
+
+-- using ghci instead of Prelude
+:set prompt "ghci> "
