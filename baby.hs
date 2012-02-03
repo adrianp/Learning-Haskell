@@ -1,26 +1,48 @@
+doubleMe :: Num a => a -> a
 doubleMe x = x + x
 
 --doubleUs x y = x * 2 + y * 2
 
+doubleUs :: Num a => a -> a -> a
 doubleUs x y = doubleMe x + doubleMe y
 
 --doubleSmallNumber x = if x > 100
 --                         then x
 --                         else x*2
 
+doubleSmallNumber :: (Ord a, Num a) => a -> a
 doubleSmallNumber x = if x > 100
                          then x
-                         else doubleMe x
+                         else x+x
 
-doubleSmallNumber' x = (if x > 100 then x else x*2) + 1
+doubleSmallNumber' :: (Ord a, Num a) => a -> a
+doubleSmallNumber' x = (if x > 100 then x else 2*x) + 1
 
 conanO'Brien = "It's a-me, Conan O'Brien!"
 
-boomBangs xs = [ if x < 10 then "BOOM!" else "BANG!" | x <- xs, odd x]
+boomBangs :: Integral a => [a] -> [[Char]] 
+boomBangs xs = [if x < 10 then "BOOM!" else "BANG!" | x <- xs, odd x]
 
+length' :: [t] -> Int 
 length' xs = sum [1 | x <- xs]
 
-removeNonUppercase st = [ c | c <- st, elem c ['A'..'Z']]
+removeNonUppercase :: [Char] -> [Char]
+removeNonUppercase st = [c | c <- st, elem c ['A'..'Z']]
 
-removeOddsInner xxs = [ [ x | x <- xs, even x ] | xs <- xxs]
+removeOddsInner :: Integral a => [[a]] -> [[a]] 
+removeOddsInner xxs = [[ x | x <- xs, even x ] | xs <- xxs]
 
+addThree :: Int -> Int -> Int -> Int
+addThree x y z = x + y + z
+
+slowFactorial :: Integer -> Integer
+slowFactorial n = product [1..n]
+
+--fastFactorial :: Int -> Int
+--fastFactorial n = product [1..n]
+
+circumference :: Float -> Float
+circumference r = 2 * pi * r
+
+circumference' :: Double -> Double
+circumference' r = 2 * pi * r
