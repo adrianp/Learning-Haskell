@@ -44,3 +44,10 @@ quicksort (x:xs) =
     let lte = [y | y <- xs, y <= x]
         gt = [y| y <- xs, y > x]
     in quicksort lte ++ [x] ++ quicksort gt
+
+quicksort' :: (Ord a) => [a] -> [a]
+quicksort' [] = []
+quicksort' (x:xs) = 
+    let lte = filter (<= x) xs
+        gt = filter (> x) xs
+    in quicksort' lte ++ [x] ++ quicksort' gt
