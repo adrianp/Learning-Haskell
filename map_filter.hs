@@ -11,7 +11,7 @@ filter' p (x:xs)
 largestDivisible :: Integer -> Integer -> Integer
 largestDivisible d max =
     let p x = mod x d == 0
-    in head (filter p [max,max-1..])
+    in head (filter' p [max,max-1..])
 
 collatzChain :: Integral a => a -> [a]
 collatzChain 1 = [1]
@@ -22,4 +22,9 @@ collatzChain x
 numLongChains :: Integral a => a -> Int -> Int 
 numLongChains max len = 
     let p xs = length xs > len
-    in length (filter p (map collatzChain [1..max]))
+    in length (filter' p (map collatzChain [1..max]))
+
+numLongChains' :: Integral a => a -> Int -> Int 
+numLongChains' max len = length (filter' (\xs -> length xs > len) (map collatzChain [1..max])) 
+
+

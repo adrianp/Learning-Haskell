@@ -35,6 +35,10 @@ removeOddsInner xxs = [[ x | x <- xs, even x ] | xs <- xxs]
 addThree :: Int -> Int -> Int -> Int
 addThree x y z = x + y + z
 
+-- This example is on page 72, Chapter 5
+addThree' :: Int -> Int -> Int -> Int
+addThree' = (\x -> (\y -> (\z -> x + y + z)))
+
 slowFactorial :: Integer -> Integer
 slowFactorial n = product [1..n]
 
