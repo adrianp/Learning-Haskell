@@ -40,6 +40,9 @@ filter'' p = foldr (\ x acc -> if p x then x : acc else acc) []
 last' :: [a] -> a
 last' = foldl1 (\ _ x -> x)
 
+last'' :: [a] -> a
+last'' xs = xs !! (length xs -1)
+
 and' :: [Bool] -> Bool
 and' xs = foldr (&&) True xs
 
@@ -53,5 +56,5 @@ sqrtSums limit = length (takeWhile (<limit) $ scanl1 (+) $ map sqrt [1..]) + 1
 
 aFun = ceiling . negate . tan . cos . max 50
 
-oddSquareSum :: Integer
-oddSquareSum = sum . takeWhile (<10000) . filter odd $ map (^2) [1..]
+oddSquareSum :: Integral a => a -> a 
+oddSquareSum limit = sum . takeWhile (<limit) . filter odd $ map (^2) [1..]

@@ -29,6 +29,7 @@ length' xs = sum [1 | x <- xs]
 removeNonUppercase :: [Char] -> [Char]
 removeNonUppercase st = [c | c <- st, elem c ['A'..'Z']]
 
+-- removes odds from lists inside a list
 removeOddsInner :: Integral a => [[a]] -> [[a]] 
 removeOddsInner xxs = [[ x | x <- xs, even x ] | xs <- xxs]
 
@@ -42,6 +43,7 @@ addThree' = (\x -> (\y -> (\z -> x + y + z)))
 slowFactorial :: Integer -> Integer
 slowFactorial n = product [1..n]
 
+-- Int is faster than Integral
 --fastFactorial :: Int -> Int
 --fastFactorial n = product [1..n]
 
