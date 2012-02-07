@@ -4,10 +4,10 @@
 sum' :: (Num a) => [a] -> a
 sum' xs = foldl (\ acc x -> acc + x) 0 xs
 
---Remember that:
---foo a = bar b a
---is equivalent to
---foo = bar b
+sum'' :: (Num a) => [a] -> a
+sum'' = foldl (+) 0
+
+-- foo a = bar b a <=> foo = bar b
 
 map'' :: (a -> b) -> [a] -> [b]
 map'' f xs = foldr (\ x acc -> f x : acc) [] xs
@@ -42,3 +42,16 @@ last' = foldl1 (\ _ x -> x)
 
 and' :: [Bool] -> Bool
 and' xs = foldr (&&) True xs
+
+-- argument must be float as we compare it with floats
+sqrtSums :: Float -> Int
+sqrtSums limit = length (takeWhile (<limit) $ scanl1 (+) $ map sqrt [1..]) + 1
+
+-- f a b c = ((f a) b) c
+-- f $ g $ x = f $ (g $ x)
+-- f (g (z x)) = (f . g . z) x
+
+aFun = ceiling . negate . tan . cos . max 50
+
+oddSquareSum :: Integer
+oddSquareSum = sum . takeWhile (<10000) . filter odd $ map (^2) [1..]
