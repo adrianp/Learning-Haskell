@@ -28,3 +28,25 @@ encode' offset msg = map (\ c -> DC.chr $ DC.ord c + offset) msg
 
 decode :: Int -> String -> String
 decode shift msg = encode (negate shift) msg
+
+digitSum :: Int -> Int
+digitSum x
+   | x < 0 = digitSum (-x) 
+   | otherwise = sum $ map DC.digitToInt $ show x
+
+findDigitSum :: Int -> Maybe Int
+findDigitSum x = DL.find (\ y -> digitSum y == x) [1..] 
+
+-- finds all tuples of type (key, value) for a given key
+findKey :: Eq a => [(a, b)] -> a -> [(a, b)]
+findKey xs k = filter (\ x -> fst x == k) xs
+
+-- finds only the first tuple of type (key value) for a given key
+findKey' :: (Eq k) => [(k,v)] -> k -> Maybe v
+findKey' [] _ = Nothing
+findKey' ((k,v):xs) key
+    | key == k = Just v
+    | otherwise = findKey' xs key 
+
+findKey'' :: (Eq k) => [(k,v)] -> k -> Maybe v
+findKey'' xs key = foldr (\ (k,v) acc -> if k == key then Just v else acc) Nothing xs 
