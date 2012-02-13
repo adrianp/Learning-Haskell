@@ -1,5 +1,6 @@
 import qualified Data.List as DL 
 import qualified Data.Char as DC
+import qualified Data.Map as DM
 
 numUniques :: (Eq a) => [a] -> Int
 numUniques = length . DL.nub
@@ -38,10 +39,12 @@ findDigitSum :: Int -> Maybe Int
 findDigitSum x = DL.find (\ y -> digitSum y == x) [1..] 
 
 -- finds all tuples of type (key, value) for a given key
+-- not a real Map, but still
 findKey :: Eq a => [(a, b)] -> a -> [(a, b)]
 findKey xs k = filter (\ x -> fst x == k) xs
 
 -- finds only the first tuple of type (key value) for a given key
+-- the real Map behaviour
 findKey' :: (Eq k) => [(k,v)] -> k -> Maybe v
 findKey' [] _ = Nothing
 findKey' ((k,v):xs) key
@@ -50,3 +53,27 @@ findKey' ((k,v):xs) key
 
 findKey'' :: (Eq k) => [(k,v)] -> k -> Maybe v
 findKey'' xs key = foldr (\ (k,v) acc -> if k == key then Just v else acc) Nothing xs 
+
+phoneBook :: DM.Map String String
+phoneBook = DM.fromList $
+    [("adrian", "123-456"),
+     ("john", "000-6147"),
+     ("penny", "987-654")
+    ]
+
+string2digits :: String -> [Int]
+string2digits s = map DC.digitToInt . filter DC.isDigit $ s
+
+phoneBookToMap :: (Ord k) => [(k, String)] -> DM.Map k String
+phoneBookToMap xs = DM.fromListWith addNumbers xs
+    where addNumbers n1 n2 = n1 ++ ", " ++ n2
+
+phoneBookToMap' :: (Ord k) => [(k,a)] -> DM.Map k [a]
+phoneBookToMap' xs = DM.fromListWith (++) $ map (\ (k, v) -> (k, [v])) xs
+
+phoneBookList :: [([Char], [Char])]
+phoneBookList = [("adrian", "123-456"),
+                 ("adrian", "123-555"),
+                 ("john", "000-6147"),
+                 ("penny", "987-654")
+                ]
